@@ -38,6 +38,7 @@
 #include <moveit/trajectory_processing/iterative_time_parameterization.h>
 #include <class_loader/class_loader.h>
 #include <ros/console.h>
+#include <time.h>
 
 /*
 #include <ReflexxesAPI.h>
@@ -135,7 +136,7 @@ public:
         *IP->CurrentPositionVector		=	*OP->NewPositionVector		;
         *IP->CurrentVelocityVector		=	*OP->NewVelocityVector		;
         *IP->CurrentAccelerationVector	        =	*OP->NewAccelerationVector	;
-      }
+      } 
       std::cout << "T" << i << " :" << totalt << std::endl;
       
       traj.setWayPointDurationFromPrevious(i, totalt);
@@ -154,11 +155,39 @@ public:
                             std::vector<std::size_t> &added_path_index) const
   { 
     bool result = planner(planning_scene, req, res);
+		const robot_model::JointModelGroup *group = res.trajectory_->getGroup();
+		const std::vector<std::string> &active_joints = group->getJointModelNames();
+		printf("ADD_TIME_PARAMETERIZATION!!!!!!!!!!!!!!!!!!!!!!11\n");
+		for (int waypoint_index = 0; waypoint_index < 10; waypoint_index++)
+		{
+			std::map<std::string, double> curr_state_values;
+			res.trajectory_->getWayPointPtr(waypoint_index)->getStateValues(curr_state_values);
+			
+			printf("Position %d: ", waypoint_index);
+			printf("(  ");
+			for (int joint_index = 0; joint_index < 7; joint_index++)
+			{
+				printf("%8.3lf  ", curr_state_values[active_joints[joint_index]]);
+			}
+			printf(")  ");
+			printf("Velocity Limit %d: ", waypoint_index);
+			printf("(  ");
+			
+			for (int joint_index = 0; joint_index < 7; joint_index++)
+			{
+				printf("%8.3lf  ",res.trajectory_->getWayPointPtr(waypoint_index)->getJointState(active_joints[joint_index])->getVelocities()[0]);
+			}
+			printf(")  \n");
+		}
     if (result && res.trajectory_)
     {
       ROS_DEBUG("Running '%s'", getDescription().c_str());
+      double begin = ros::Time::now().toSec();
       if (!time_param_.computeTimeStamps(*res.trajectory_))
         ROS_WARN("Time parametrization for the solution path failed.");
+      double end = ros::Time::now().toSec();
+      printf("!!!!!!!!!!!!!!!RETIMING DURATION!!!!!!!!!!!!!!!!!!! = %f \n", end-begin);
+      
     }
     
     return result;

@@ -43,7 +43,7 @@ const std::string TrajectoryExecutionManager::EXECUTION_EVENT_TOPIC = "trajector
 
 static const ros::Duration DEFAULT_CONTROLLER_INFORMATION_VALIDITY_AGE(1.0);
 static const double DEFAULT_CONTROLLER_GOAL_DURATION_SCALING = 1.1; // allow the execution of a trajectory to take more time than expected (scaled by a value > 1)
-static const ros::Duration DEFAULT_CONTROLLER_GOAL_DURATION_MARGIN(0.5); // allow 0.5s more than the expected execution time before triggering a trajectory cancel (applied after scaling)
+static const ros::Duration DEFAULT_CONTROLLER_GOAL_DURATION_MARGIN(10); // allow 0.5s more than the expected execution time before triggering a trajectory cancel (applied after scaling)
 
 TrajectoryExecutionManager::TrajectoryExecutionManager(const robot_model::RobotModelConstPtr &kmodel) : 
   kinematic_model_(kmodel), node_handle_("~")

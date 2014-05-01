@@ -40,6 +40,8 @@
 #include <moveit/move_group/move_group_capability.h>
 #include <actionlib/server/simple_action_server.h>
 #include <moveit_msgs/MoveGroupAction.h>
+//controllerCB include files
+#include <pr2_controllers_msgs/JointTrajectoryControllerState.h>
 
 namespace move_group
 {
@@ -62,6 +64,7 @@ private:
   void preemptMoveCallback();
   void setMoveState(MoveGroupState state);
   bool planUsingPlanningPipeline(const planning_interface::MotionPlanRequest &req, plan_execution::ExecutableMotionPlan &plan);
+	//void controllerStateCB(const pr2_controllers_msgs::JointTrajectoryControllerState::ConstPtr& msg);	
   
   boost::scoped_ptr<actionlib::SimpleActionServer<moveit_msgs::MoveGroupAction> > move_action_server_;
   moveit_msgs::MoveGroupFeedback move_feedback_;

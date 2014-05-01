@@ -13,6 +13,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   pluginlib
   tf
+	xtf
+	pr2_controllers_msgs
 )
 
 catkin_package(
@@ -22,14 +24,19 @@ catkin_package(
   CATKIN_DEPENDS
     moveit_core
     moveit_ros_planning
+		xtf
+		pr2_controllers_msgs
 )
 
 include_directories(include)
+include_directories ("/usr/include") 
 include_directories(sec/default_capabilities)
 include_directories(${catkin_INCLUDE_DIRS})
 include_directories(SYSTEM
                     ${Boost_INCLUDE_DIRS}
                     )
+
+#include_directories ("/home/pr2/Desktop/source_code/IPI/include")
 
 link_directories(${Boost_LIBRARY_DIRS})
 link_directories(${catkin_LIBRARY_DIRS})
@@ -54,6 +61,7 @@ add_library(moveit_move_group_default_capabilities
   )
 
 target_link_libraries(move_group ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+#target_link_libraries(moveit_move_group_default_capabilities ${catkin_LIBRARIES} ${Boost_LIBRARIES} /home/pr2/Desktop/source_code/IPI/Linux/x86/debug/lib/shared/libReflexxesTypeIV.so)
 target_link_libraries(moveit_move_group_default_capabilities ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 target_link_libraries(list_move_group_capabilities ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 

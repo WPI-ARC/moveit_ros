@@ -13,6 +13,7 @@
   <url type="bugtracker">https://github.com/ros-planning/moveit_ros/issues</url>
   <url type="repository">https://github.com/ros-planning/moveit_ros</url>
 
+
   <buildtool_depend>catkin</buildtool_depend> 
 
   <build_depend>moveit_core</build_depend>
@@ -20,13 +21,22 @@
   <build_depend>actionlib</build_depend>
   <build_depend>tf</build_depend>
   <build_depend>pluginlib</build_depend>
+  <build_depend>shape_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+	<build_depend>visualization_msgs</build_depend>
+	<build_depend>pr2_controllers_msgs</build_depend>
+	<build_depend>xtf</build_depend>
 
   <run_depend>moveit_core</run_depend>
   <run_depend>moveit_ros_planning</run_depend>
   <run_depend>actionlib</run_depend>
   <run_depend>tf</run_depend>
   <run_depend>pluginlib</run_depend>
-
+  <run_depend>shape_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>visualization_msgs</run_depend>
+  <run_depend>pr2_controllers_msgs</run_depend>
+  <run_depend>xtf</run_depend>
   <export>
     <moveit_ros_move_group plugin="${prefix}/default_capabilities_plugin_description.xml"/>
   </export>
